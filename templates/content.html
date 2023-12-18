@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>DeJourney ID - Stories</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <meta property="og:title" content="DeJourney ID" />
+  <meta property="og:description" content="Bagikan pengalaman wisatamu" />
+  <meta
+    property="og:image"
+    content="{{ url_for('static', filename='og_image.png') }}"
+  />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+
+  <!-- Vendor CSS Files -->
+  <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="static/vendor/aos/aos.css" rel="stylesheet">
+  <link href="static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/css/main.css" rel="stylesheet">
+
+  <link href="static/css/style.css" rel="stylesheet" />
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+
+  <script>
+    {% if request.args.get('errmsg') %}
+        alert("{{ request.args.get('errmsg') }}")
+    {% endif %}
+
+    let editor;
+    $(document).ready(function () {
+      $('#navcontent').addClass('active');
+      ClassicEditor
+      .create( document.querySelector( '#deskripsi' ) )
+      .then((newEditor) => {
+      editor = newEditor;
+
+      console.log('Editor was initialized successfully:', newEditor);
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+
+      get_posts();
+
+      auth_login_content();
+    })
+  </script>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header d-flex align-items-center">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="/" class="logo d-flex align-items-center">
+        <img
+          src="{{ url_for('static', filename='DJ_icon.png') }}"
+          alt="icon-DejourneyID"
+          height="40px"
+        />
+        <h1 style="color: greenyellow">DeJourney ID</h1>
+        <span style="color: aliceblue">.</span>
+      </a>
+
+      <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+      <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+      <nav id="navbar" class="navbar">
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header --> 
+<body>
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs d-flex align-items-center" style="background-image: url('static/img/content-bg.jpg');">
+      <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
+
+        <h2>DeJourney Stories</h2>
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li>Stories</li>
+        </ol>
+
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+        <!-- ======= Get Started Section ======= -->
+        <div class="modal fade" id="shareExperienceModal" tabindex="-1" role="dialog" aria-labelledby="shareExperienceModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="shareExperienceModalLabel">Tambah Cerita Perjalanan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label class="form-label">Judul Postingan</label>
+                    <input type="text" id="judul" name="name" class="form-control" placeholder="Masukan judul" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Lokasi Wisata</label>
+                    <br><input type="text" id="lokasi" name="title" class="form-control" placeholder="Masukan lokasi wisata" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Deskripsi Postingan</label>
+                    <br><div class="form-control" id="deskripsi" placeholder="Masukan deskripsi" required></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Upload Gambar Utama</label>
+                    <br><input type="file" class="form-control" id="image" name="image" required>
+                  </div><br><br>
+                  <div class="text-center">
+                    <button type="button" onclick="share()" class="btn btn-primary">Bagikan</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+          <div class="container mt-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="sidebar-item search-form">
+            <input id="search" type="text" placeholder="Search...">
+            <button type="button" onclick="search_post()"><i class="bi bi-search"></i></button>
+            <button type="button" class="btn btn-primary btn-djID" id="btn-add" data-bs-toggle="modal" data-bs-target="#shareExperienceModal">
+              Tambah Cerita Perjalanan
+            </button>
+        </div></div><!-- End sidebar search formn-->  
+        
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4 posts-list" id="list">
+        </div><!-- End blog posts list -->
+        
+      </div>
+    </section><!-- End Blog Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="footer-legal text-center position-relative">
+      <div class="container">
+        <div class="copyright">
+          &copy; Copyright <strong><span>Kelompok 2</span></strong>. All Rights Reserved
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- End Footer -->
+
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+ <!-- Vendor JS Files -->
+ <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <script src="static/vendor/aos/aos.js"></script>
+ <script src="static/vendor/glightbox/js/glightbox.min.js"></script>
+ <script src="static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+ <script src="static/vendor/swiper/swiper-bundle.min.js"></script>
+ <script src="static/vendor/purecounter/purecounter_vanilla.js"></script>
+
+ <!-- Template Main JS File -->
+ <script src="static/js/main.js"></script>
+ <script src="static/js/navbar-control.js"></script>
+ <script src="static/js/content-control.js"></script>
+
+
+
+
+</body>
+
+</html>

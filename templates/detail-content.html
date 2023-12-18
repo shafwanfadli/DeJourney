@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>{{post_info.judul}} - DeJourney ID</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <meta property="og:title" content="DeJourney ID" />
+    <meta property="og:description" content="Bagikan pengalaman wisatamu" />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='og_image.png') }}"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+      type="image/x-icon"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendor/aos/aos.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}"
+      rel="stylesheet"
+    />
+
+    <!-- Template Main CSS File -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="{{ url_for('static', filename='css/main.css') }}"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='css/style.css') }}"
+      rel="stylesheet"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#navcontent").addClass("active");
+
+        ClassicEditor.create(document.querySelector("#deskripsi"))
+          .then((newEditor) => {
+            editor = newEditor;
+
+            console.log("Editor was initialized successfully:", newEditor);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
+        auth_login_detail("{{post_info.username}}");
+      });
+
+      function focus_comment() {
+        $("#comment-input").focus();
+      }
+
+      function resetcomment() {
+        $("#comment-input").val("");
+      }
+
+      function editcomment() {
+        $("#form-editcom").removeClass("visually-hidden");
+        $("#com-control").addClass("visually-hidden");
+      }
+
+      function cancelcom() {
+        $("#form-editcom").addClass("visually-hidden");
+        $("#com-control").removeClass("visually-hidden");
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header d-flex align-items-center">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <a href="/" class="logo d-flex align-items-center">
+          <img
+            src="{{ url_for('static', filename='DJ_icon.png') }}"
+            alt="icon-DejourneyID"
+            height="40px"
+          />
+          <h1 style="color: greenyellow">DeJourney ID</h1>
+          <span style="color: aliceblue">.</span>
+        </a>
+
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+        <nav id="navbar" class="navbar"></nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <main id="main">
+      <!-- ======= Breadcrumbs ======= -->
+      <div
+        class="breadcrumbs d-flex align-items-center"
+        style="background-image: url('{{ url_for('static', filename='img/content-bg.jpg') }}');"
+      >
+        <div
+          class="container position-relative d-flex flex-column align-items-center"
+          data-aos="fade"
+        >
+          <h2>Content Details</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>Content Details</li>
+          </ol>
+        </div>
+      </div>
+      <!-- End Breadcrumbs -->
+
+      <!-- ======= Blog Details Section ======= -->
+      <div
+        class="modal fade"
+        id="shareExperienceModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="shareExperienceModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="shareExperienceModalLabel">
+                Edit Cerita Perjalanan
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="form-label">Judul Postingan</label>
+                <input
+                  type="text"
+                  id="judul"
+                  name="name"
+                  class="form-control"
+                  placeholder="Masukan judul"
+                  value="{{post_info.judul}}"
+                  required
+                />
+                <input type="hidden" id="postid" value="{{post_info.postid}}" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Lokasi Wisata</label>
+                <br /><input
+                  type="text"
+                  id="lokasi"
+                  name="title"
+                  class="form-control"
+                  placeholder="Masukan lokasi wisata"
+                  value="{{post_info.lokasi}}"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Deskripsi Postingan</label>
+                <br />
+                <div
+                  class="form-control"
+                  id="deskripsi"
+                  placeholder="Masukan deskripsi"
+                  required
+                >
+                  {{post_info.deskripsi | safe}}
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Upload Gambar Utama</label>
+                <br /><input
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                  required
+                />
+              </div>
+              <br /><br />
+              <div class="text-center">
+                {% if post_info.confirm == 1 %}
+                <button
+                  type="button"
+                  onclick="update()"
+                  class="btn btn-primary"
+                >
+                  Update
+                </button>
+                {% elif post_info.confirm == 2 %}
+                <button
+                  type="button"
+                  onclick="resend()"
+                  class="btn btn-primary"
+                >
+                  Kirim Ulang
+                </button>
+                {% endif %}
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  class="btn btn-danger"
+                >
+                  Batal
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section id="blog" class="blog">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+          <div class="row g-0">
+            <div class="col-sm-6 col-md-8">
+              <article class="blog-details">
+                <div class="post-img detail-img">
+                  <img
+                    src="{{ url_for('static', filename=post_info.image) }}"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+                <h2 class="title">
+                  {{post_info.judul}}{% if post_info.confirm == 2 %}
+                  <p class="text-danger">(Ditolak)</p>
+                  {% endif %}
+                </h2>
+                <div class="meta-top">
+                  <ul>
+                    <li class="d-flex align-items-center">
+                      <img
+                        src="/static/{{user.profile_pic_real}}"
+                        class="rounded-circle"
+                        alt="..."
+                        style="width: 32px"
+                      />
+                      &nbsp;<a
+                        href="/user/{{post_info.username}}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >{{post_info.username}}</a
+                      >
+                      <div class="ms-3" id="btn-post-control">
+                        <button
+                          class="btn btn-md btn-primary btn-djID"
+                          data-bs-toggle="modal"
+                          data-bs-target="#shareExperienceModal"
+                        >
+                          {% if post_info.confirm == 1 %} Edit {% elif
+                          post_info.confirm == 2 %} Edit dan Kirim Ulang {%
+                          endif %}
+                        </button>
+                        <button
+                          class="btn btn-md btn-djID2 btn-primary"
+                          onclick="delete_content('{{post_info.postid}}')"
+                        >
+                          Hapus
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                  <hr />
+                  <div class="d-flex justify-content-between">
+                    <div>
+                      <ul>
+                        <li class="d-flex align-items-center">
+                          <i class="bi bi-clock"></i>{{datepost}}
+                        </li>
+                        <li class="d-flex align-items-center">
+                          <i class="bi bi-geo-alt"></i>{{post_info.lokasi}}
+                        </li>
+                      </ul>
+                    </div>
+                    <div>
+                      <ul>
+                        {% if user_info %} {% if post_info.confirm == 1 %}
+                        <li class="d-flex align-items-center">
+                          <span class="like-num"
+                            >{{post_info.count_heart}}</span
+                          >
+                          &nbsp;&nbsp;
+                          <a
+                            aria-label="heart"
+                            onclick="toggle_like('{{post_info.postid}}', 'heart')"
+                            style="cursor: pointer"
+                          >
+                            {% if post_info.heart_by_me %}
+                            <i class="bi bi-heart-fill fs-4"></i>
+                            {% else %}
+                            <i class="bi bi-heart fs-4"></i>
+                            {% endif %}
+                          </a>
+                        </li>
+                        <li class="d-flex align-items-center">
+                          {{post_info.count_comment}}&nbsp;&nbsp;
+                          <a onclick="focus_comment()" style="cursor: pointer"
+                            ><i class="bi bi-chat-left-text-fill fs-4"></i
+                          ></a>
+                        </li>
+                        {% endif %} {% else %}
+                        <li class="d-flex align-items-center text-danger">
+                          Login
+                          <a href="/login" class="fw-bold text-danger"
+                            >&nbsp;DI SINI&nbsp;</a
+                          >
+                          untuk menyukai
+                        </li>
+                        {% endif %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!-- End meta top -->
+                <div class="content">{{post_info.deskripsi | safe}}</div>
+                <!-- End post content -->
+              </article>
+            </div>
+            {% if post_info.confirm == 1 %}
+            <div class="col-6 col-md-4">
+              <article class="blog-details ms-3">
+                <h4 class="like-comment">Komentar terkait postingan</h4>
+                {% if user_info %}
+                <div class="card border-0">
+                  <div class="d-flex flex-start w-100">
+                    <img
+                      class="rounded-circle shadow-1-strong me-3"
+                      src="/static/{{user_info.profile_pic_real}}"
+                      alt="avatar"
+                      width="40"
+                      height="40"
+                    />
+                    <div class="form-outline w-100">
+                      <textarea
+                        class="form-control"
+                        id="comment-input"
+                        rows="2"
+                        placeholder="Tulis komentar ..."
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="float-end mt-2 pt-1">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm"
+                      onclick="add_comment('{{post_info.postid}}')"
+                    >
+                      Kirim
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary btn-sm"
+                      onclick="resetcomment()"
+                    >
+                      Batal
+                    </button>
+                  </div>
+                </div>
+                {% else %}
+                <div class="card border-0">
+                  <h5 class="text-danger">
+                    Silakan Login Terlebih Dahulu Untuk Dapat Berkomentar
+                  </h5>
+                  <div class="float-end mt-2 pt-1 text-center">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm"
+                      onclick="window.location.href='/login'"
+                    >
+                      Login
+                    </button>
+                  </div>
+                </div>
+                {% endif %}
+                <hr />
+                <p>{{post_info.count_comment}} Komentar</p>
+                <div class="content-item" id="comments">
+                  {% for komen in komen_info %}
+                  <div class="card border-0 border-bottom border-dark mt-2">
+                    <div class="d-flex flex-start">
+                      <img
+                        class="rounded-circle shadow-1-strong me-3"
+                        src="/static/{{komen.user.profile_pic_real}}"
+                        alt=""
+                        width="40"
+                        height="40"
+                      />
+                      <div class="form-outline">
+                        <a
+                          href="/user/{{komen.username}}"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          ><strong>{{komen.username}}</strong></a
+                        >
+                        <p class="text-justify">{{komen.comment}}</p>
+                        <span class="time-comment">{{komen.timecom}}</span>
+                        {% if user_info %} {% if user_info.username ==
+                        komen.username %}
+                        <div class="visually-hidden" id="form-editcom">
+                          <textarea id="comment-edit" class="form-control">
+{{komen.comment}}</textarea
+                          >
+
+                          <a
+                            class=""
+                            onclick="edit_comment('{{komen.commentid}}')"
+                            style="cursor: pointer"
+                            >Update</a
+                          >|
+                          <a
+                            class=""
+                            onclick="cancelcom()"
+                            style="cursor: pointer"
+                            >Batal</a
+                          >
+                        </div>
+                        <div id="com-control">
+                          <a
+                            class=""
+                            onclick="editcomment()"
+                            style="cursor: pointer"
+                            >Edit</a
+                          >|
+                          <a
+                            href=""
+                            onclick="delete_comment('{{komen.commentid}}')"
+                            style="cursor: pointer"
+                            >Hapus</a
+                          >
+                        </div>
+                        {% endif %} {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </article>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <!-- End Blog Details Section -->
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="footer-legal text-center position-relative">
+        <div class="container">
+          <div class="copyright">
+            &copy; Copyright <strong><span>Kelompok 2</span></strong
+            >. All Rights Reserved
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/glightbox/js/glightbox.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/purecounter/purecounter_vanilla.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navbar-control.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/content-control.js') }}"></script>
+  </body>
+</html>

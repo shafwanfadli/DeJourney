@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>DeJourney ID - About Us</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <meta property="og:title" content="DeJourney ID" />
+    <meta property="og:description" content="Bagikan pengalaman wisatamu" />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='og_image.png') }}"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+      type="image/x-icon"
+    />
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="static/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="static/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="static/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="static/css/main.css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#navabout").addClass("active");
+      });
+    </script>
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header d-flex align-items-center">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <a href="/" class="logo d-flex align-items-center">
+          <img
+            src="{{ url_for('static', filename='DJ_icon.png') }}"
+            alt="icon-DejourneyID"
+            height="40px"
+          />
+          <h1 style="color: greenyellow">DeJourney ID</h1>
+          <span style="color: aliceblue">.</span>
+        </a>
+
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+        <nav id="navbar" class="navbar"></nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <main id="main">
+      <!-- ======= Breadcrumbs ======= -->
+      <div
+        class="breadcrumbs d-flex align-items-center"
+        style="background-image: url('static/img/about-bg.jpg')"
+      >
+        <div
+          class="container position-relative d-flex flex-column align-items-center"
+          data-aos="fade"
+        >
+          <h2>About Us</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li>About</li>
+          </ol>
+        </div>
+      </div>
+      <!-- End Breadcrumbs -->
+
+      <!-- ======= About Section ======= -->
+      <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
+          <div class="row position-relative">
+            <div
+              class="col-lg-7 about-img"
+              style="background-image: url(static/img/DeJourney.jpg)"
+            ></div>
+
+            <div class="col-lg-7">
+              <h2>About us</h2>
+              <div class="our-story">
+                <p>
+                  DeJourney ID adalah platform wisata yang memudahkan masyarakat
+                  Indonesia menemukan destinasi impian. Dengan fokus pada
+                  kreativitas dan ekonomi digital, kami tidak hanya memberikan
+                  informasi tetapi juga menciptakan komunitas melalui forum
+                  diskusi untuk berbagi pengalaman. Bergabunglah dengan kami,
+                  temukan keindahan Indonesia, dan jadilah bagian dari komunitas
+                  pecinta wisata.
+                </p>
+                <p>
+                  Kami tidak hanya menyediakan informasi tentang destinasi
+                  wisata, tetapi juga menciptakan komunitas yang aktif melalui
+                  forum diskusi. DeJourney ID mengundang para pelancong untuk
+                  berbagi pengalaman mereka, memberikan rekomendasi, dan
+                  memperluas jaringan dengan sesama pecinta wisata. Dengan
+                  begitu, kami tidak hanya menjadi panduan destinasi, tetapi
+                  juga menjadi wadah bagi para pengguna untuk terhubung,
+                  berinteraksi, dan merayakan keindahan Indonesia bersama-sama.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End About Section -->
+
+      <!-- ======= Get Started Section ======= -->
+      <section id="get-started" class="get-started section-bg">
+        <div class="container">
+          <div class="row justify-content-between gy-4">
+            <div class="col-lg-6 d-flex align-items-center" data-aos="fade-up">
+              <div class="content">
+                <h3>Ada saran atau masukan?</h3>
+                <p>
+                  Selamat datang di Layanan Saran dan Masukan kami! Berikan
+                  pandangan, ide, atau pengalaman Anda untuk membantu
+                  meningkatkan pelayanan kami. Setiap umpan balik Anda sangat
+                  berharga bagi kami. Terima kasih atas kontribusinya!
+                </p>
+              </div>
+            </div>
+
+            <div class="col-lg-5" data-aos="fade" id="msgFormBox">
+              <h3>Saran dan masukan</h3>
+              <p>
+                Silahkan berikan pandangan, ide, atau pengalaman Anda untuk
+                membantu meningkatkan pelayanan kami.
+              </p>
+              <div class="row gy-3">
+                <div class="col-md-12">
+                  <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    placeholder="Name"
+                    id="username"
+                    required
+                    value="{% if user_login %}{{user_login.profile_name}}{% elif request.args.get('user') %}{{request.args.get('user')}}
+                {% endif %}"
+                  />
+                </div>
+
+                <div class="col-md-12">
+                  <textarea
+                    class="form-control"
+                    name="message"
+                    rows="6"
+                    placeholder="Message"
+                    id="message"
+                    required
+                  >
+{% if request.args.get('request') %}Permintaan buka akun, (Mohon berikan keterangan kenapa akun anda harus dibuka, tunggu dalam waktu kurang dari 2 hari sejak pengiriman untuk memeriksa kembali akun anda apakah sudah bisa login atau masih dalam status diblokir)
+              {% endif %}</textarea
+                  >
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <button
+                    type="button"
+                    onclick="postsaran()"
+                    class="btn btn-success"
+                  >
+                    Bagikan
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- End Quote Form -->
+          </div>
+        </div>
+      </section>
+      <br /><!-- End Get Started Section -->
+
+      <!-- ======= Testimonials Section ======= -->
+      <section id="testimonials" class="testimonials section-bg">
+        <div class="container" data-aos="fade-up">
+          <div class="section-header">
+            <h2>Saran dan Masukan</h2>
+            <p>Terimakasih atas saran dan masukan yang kalian berikan :)</p>
+          </div>
+
+          <div class="slides-2 swiper">
+            <div class="swiper-wrapper">
+              {% for data in datasaran %} {% if data.show == true %}
+              <div class="swiper-slide">
+                <div class="testimonial-wrap">
+                  <div class="testimonial-item">
+                    <h3>{{data.username}}</h3>
+                    <p>
+                      <i class="bi bi-quote quote-icon-left"></i>
+                      {{data.message}}
+                      <i class="bi bi-quote quote-icon-right"></i>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {% endif %} {% endfor %}
+              <!-- End testimonial item -->
+              <!-- End testimonial item -->
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+      <!-- End Testimonials Section -->
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="footer-legal text-center position-relative">
+        <div class="container">
+          <div class="copyright">
+            &copy; Copyright <strong><span>Kelompok 2</span></strong
+            >. All Rights Reserved
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+    <a
+      href="#"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="static/vendor/aos/aos.js"></script>
+    <script src="static/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="static/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="static/vendor/purecounter/purecounter_vanilla.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/js/main.js"></script>
+    <script src="static/js/navbar-control.js"></script>
+    <script src="static/js/about-control.js"></script>
+  </body>
+</html>

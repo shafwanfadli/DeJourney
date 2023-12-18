@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>DeJourney ID - Media</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <meta property="og:title" content="DeJourney ID" />
+    <meta property="og:description" content="Bagikan pengalaman wisatamu" />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='og_image.png') }}"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="static/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="static/vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="static/vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="static/vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+    <link href="static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="static/css/main.css" rel="stylesheet" />
+    <link href="static/css/style.css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      function showAddForm() {
+        if ($("select").val() === "add") {
+          console.log("tambah");
+          $("#ig-kategori").addClass("visually-hidden");
+          $("#morekat").removeClass("visually-hidden");
+        }
+      }
+
+      function addmedia() {
+        let kategori = "";
+        let type = "";
+        if ($("select").val() === "add") {
+          kategori = $("#morekat").val();
+          type = "baru";
+        } else {
+          kategori = $("select").val();
+          type = "lama";
+        }
+        let title = $("#title").val();
+        let deskripsi = $("#description").val();
+        let file = $("#image")[0].files[0];
+
+        if (title === "") {
+          alert("Masukkan judul gambar");
+        } else if (kategori === "") {
+          alert("Masukkan kategori atau tambahkan kategori lain");
+        } else if (deskripsi === "") {
+          alert("Tambahkan deskripsi gambar!");
+        } else {
+          let form_data = new FormData();
+          form_data.append("file_give", file);
+          form_data.append("title_give", title);
+          form_data.append("kategori_give", kategori);
+          form_data.append("type_give", type);
+          form_data.append("deskripsi_give", deskripsi);
+
+          $.ajax({
+            type: "POST",
+            url: "/add_media",
+            data: form_data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+              if (response["result"] === "success") {
+                alert("Media berhasil diupload!");
+                window.location.reload();
+              }
+            },
+          });
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header d-flex align-items-center">
+      <div
+        class="container-fluid container-xl d-flex align-items-center justify-content-between"
+      >
+        <a href="/" class="logo d-flex align-items-center">
+          <img
+            src="{{ url_for('static', filename='DJ_icon.png') }}"
+            alt="icon-DejourneyID"
+            height="40px"
+          />
+          <h1 style="color: greenyellow">DeJourney ID</h1>
+          <span style="color: aliceblue">.</span>
+        </a>
+
+        <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+        <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+        <nav id="navbar" class="navbar"></nav>
+        <!-- .navbar -->
+      </div>
+    </header>
+    <!-- End Header -->
+
+    <main id="main">
+      <!-- ======= Breadcrumbs ======= -->
+      <div
+        class="breadcrumbs d-flex align-items-center"
+        style="background-image: url('static/img/media-bg.jpg')"
+      >
+        <div
+          class="container position-relative d-flex flex-column align-items-center"
+          data-aos="fade"
+        >
+          <h2>DeJourney Moments</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li>Moments</li>
+          </ol>
+        </div>
+      </div>
+      <!-- End Breadcrumbs -->
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="addImageModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="addImageModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addImageModalLabel">Tambah Gambar</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group mb-3">
+                <label for="description">Masukan gambar:</label><br />
+                <input
+                  type="file"
+                  class="form-control"
+                  id="image"
+                  name="image"
+                  required
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="description">Judul Gambar</label><br />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  placeholder="Masukkan judul"
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="description">Kategori:</label><br />
+                <div class="input-group" id="ig-kategori">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >Options</label
+                  >
+                  <select
+                    name="kategori"
+                    class="form-select"
+                    id="kategori"
+                    onchange="showAddForm()"
+                  >
+                    <option selected value="">Choose...</option>
+                    {% for list in kategori %}
+                    <option value="{{list.kategori}}">{{list.kategori}}</option>
+                    {% endfor %}
+                    <option value="add">Tambah kategori lain ...</option>
+                  </select>
+                </div>
+                <input
+                  type="text"
+                  class="form-control visually-hidden morekat"
+                  id="morekat"
+                  placeholder="Masukkan kategori lain"
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="description">Deskripsi:</label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  rows="4"
+                  placeholder="Masukkan deskripsi gambar"
+                  required
+                ></textarea>
+              </div>
+              <button onclick="addmedia()" class="btn btn-primary">
+                Simpan
+              </button>
+              <button
+                type="submit"
+                class="btn btn-danger"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                Batal
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section id="projects" class="projects">
+        {% if user_login %} {% else %}
+        <div class="text-center">
+          <h5 class="text-danger">
+            Login untuk menambahkan gambar cerita perjalanan anda
+          </h5>
+          <button
+            class="btn btn-primary btn-djID"
+            onclick="window.location.href='/login'"
+          >
+            Login Di Sini
+          </button>
+        </div>
+        {% endif %}
+        <div class="container">
+          <div class="row" style="margin-left: 82%">
+            <div class="col-md-12 text-right mt-3">
+              {% if user_login %}
+              <button
+                type="button"
+                class="btn btn-primary"
+                style="background-color: #508d69"
+                data-bs-toggle="modal"
+                data-bs-target="#addImageModal"
+              >
+                Tambah Gambar
+              </button>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- ======= Our Projects Section ======= -->
+
+        <div class="container" data-aos="fade-up">
+          <div
+            class="portfolio-isotope"
+            data-portfolio-filter="*"
+            data-portfolio-layout="masonry"
+            data-portfolio-sort="original-order"
+          >
+            <ul
+              class="portfolio-flters"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <li data-filter="*" class="filter-active">Semua</li>
+              {% if kategori %} {% for datakat in kategori %}
+              <li data-filter=".filter-{{datakat.kategori}}">
+                {{datakat.kategori}}
+              </li>
+              {% endfor %} {% endif %}
+            </ul>
+            <!-- End Projects Filters -->
+
+            <div
+              class="row gy-4 portfolio-container"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
+              {% if media %} {% for datamedia in media %}
+              <div
+                class="col-lg-4 col-md-6 portfolio-item filter-{{datamedia.kategori}}"
+              >
+                <div class="portfolio-content h-100">
+                  <img
+                    src="static/{{datamedia.image}}"
+                    class="img-fluid"
+                    alt="{{datamedia.title}}"
+                  />
+                  <div class="portfolio-info">
+                    <h5>
+                      <a
+                        href="/user/{{datamedia.username}}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >Posted By {{datamedia.username}}</a
+                      >
+                    </h5>
+                    <h4>{{datamedia.kategori}}</h4>
+                    <p>{{datamedia.title}}</p>
+                    <a
+                      href="static/{{datamedia.image}}"
+                      title="{{datamedia.deskripsi}}"
+                      data-gallery="portfolio-gallery-{{datamedia.kategori}}"
+                      class="glightbox preview-link"
+                      ><i class="bi bi-zoom-in"></i
+                    ></a>
+                  </div>
+                </div>
+              </div>
+              {% endfor %} {% endif %}
+              <!-- End Projects Item -->
+            </div>
+            <!-- End Projects Container -->
+          </div>
+        </div>
+      </section>
+      <!-- End Our Projects Section -->
+    </main>
+    <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="footer-legal text-center position-relative">
+        <div class="container">
+          <div class="copyright">
+            &copy; Copyright <strong><span>Kelompok 2</span></strong
+            >. All Rights Reserved
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+    <a
+      href="#"
+      class="scroll-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
+
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/aos/aos.js"></script>
+    <script src="static/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="static/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="static/vendor/purecounter/purecounter_vanilla.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="static/js/main.js"></script>
+    <script src="static/js/navbar-control.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#navmedia").addClass("active");
+      });
+    </script>
+  </body>
+</html>
